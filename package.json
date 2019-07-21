@@ -1,0 +1,23 @@
+{
+  "name": "stroybooks",
+  "version": "1.0.0",
+  "description": "app to share public or write private stories",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "author": "Agung Tuanany",
+  "license": "MIT",
+  "engines": {
+    "node": "10.3.0",
+    "npm": "6.x",
+    "yarn": "1.x"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.6.5",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^2.0.0"
+  }
+}
