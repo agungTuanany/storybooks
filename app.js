@@ -4,9 +4,24 @@ const passport = require('passport');
 
 // Passport Config
 require('./config/passport')(passport);
+
 // Load Routes
 const auth = require('./routes/auth');
 const app = express();
+
+// Load Keys
+const keys = require('./config/keys');
+
+// Map global promises
+mongoose.promise = global.Promise;
+
+// Mongoose Connect
+mongoose.connect(keys.mongoURI, {
+  //useMongoCLient: true,
+  useNewUrlParser: true
+})
+  .then(() => console.log("MongoDB connected to server"))
+  .catch(err => console.log(err));
 
 app.get('/', (req, res) => {
   res.send('it works');
