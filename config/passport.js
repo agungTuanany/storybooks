@@ -11,6 +11,7 @@ module.exports = function(passport) {
       clientID: keys.googleClientID,
       clientSecret: keys.googleClientSecret,
       callbackURL: '/auth/google/callback',
+      //scope: 'https://www.googleapis.com/auth/plus.login',
       proxy: true
     }, (accessToken, refreshToken, profile, done) => {
       //console.log(accessToken);
@@ -41,7 +42,14 @@ module.exports = function(passport) {
             .then(user => done(null, user));
         }
       })
-
     })
-  )
+  );
+
+  passport.serializeUser((user, done) => {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser((id, done) => {
+    User.findById(id).then(user => done(null, user));
+  });
 }

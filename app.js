@@ -1,5 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const passport = require('passport');
 
 // Load User Model
@@ -16,7 +18,7 @@ const app = express();
 const keys = require('./config/keys');
 
 // Map global promises
-mongoose.promise = global.Promise;
+mongoose.Promise = global.Promise;
 
 // Mongoose Connect
 mongoose.connect(keys.mongoURI, {
@@ -25,6 +27,28 @@ mongoose.connect(keys.mongoURI, {
 })
   .then(() => console.log("MongoDB connected to server"))
   .catch(err => console.log(err));
+
+// cookie-parser middleware
+app.use(cookieParser());
+
+// express-session middleware
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+}));
+
+//  !IMPORTANT write after express-session
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Set global vars
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
+
 
 app.get('/', (req, res) => {
   res.send('it works');
