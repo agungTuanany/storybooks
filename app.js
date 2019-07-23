@@ -1,4 +1,5 @@
 const express = require('express');
+const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -11,8 +12,13 @@ require('./models/User');
 require('./config/passport')(passport);
 
 // Load Routes
+const index = require('./routes/index');
 const auth = require('./routes/auth');
+
 const app = express();
+
+// handling static folder
+app.use('*/public', express.static('public'));
 
 // Load Keys
 const keys = require('./config/keys');
@@ -27,6 +33,13 @@ mongoose.connect(keys.mongoURI, {
 })
   .then(() => console.log("MongoDB connected to server"))
   .catch(err => console.log(err));
+
+// express-handlebars middleware
+app.engine('hbs', exphbs({
+  extname: 'hbs',
+  defaultLayout: 'main',
+}));
+app.set('view engine', 'hbs');
 
 // cookie-parser middleware
 app.use(cookieParser());
@@ -49,12 +62,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
-app.get('/', (req, res) => {
-  res.send('it works');
-});
-
 // User Routes
+app.use('/', index);
 app.use('/auth', auth);
 
 const port = process.env.PORT || 5001;

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js & npm run sass",
+    "sass": "node-sass -w public/scss -o public/css --recursive"
   },
   "author": "Agung Tuanany",
   "license": "MIT",
@@ -17,8 +18,10 @@
   "dependencies": {
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
     "express-session": "^1.16.2",
     "mongoose": "^5.6.5",
+    "node-sass": "^4.12.0",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0"
   }
