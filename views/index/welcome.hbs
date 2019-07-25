@@ -1,6 +1,9 @@
-<h1>Welcome</h1>
+<h1>Welcome {{user.firstName}}</h1>
 <p>Welcome to Product Order 1.0.0</p>
 <p>
   This is a small project on inventory system, you can request a stock inventory for books.
 </p>
+{{#if user}}
+{{else}}
 <a class="btn red darken-1" href="/auth/google"><i class="icon fab fa-google left"></i> Login With Google</a>
+{{/if}}
