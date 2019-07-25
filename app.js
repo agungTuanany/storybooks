@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const exphbs = require('express-handlebars');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
@@ -14,6 +15,7 @@ require('./config/passport')(passport);
 // Load Routes
 const index = require('./routes/index');
 const auth = require('./routes/auth');
+const stories = require('./routes/stories');
 
 const app = express();
 
@@ -39,7 +41,8 @@ app.engine('hbs', exphbs({
   extname: 'hbs',
   defaultLayout: 'main',
   layoutsDir: __dirname + '/views/layouts',
-  partialsDir: __dirname + '/views/partials'
+  partialsDir: __dirname + '/views/partials',
+  storiesDir: __dirname + '/views/stories'
 }));
 app.set('view engine', 'hbs');
 
@@ -67,6 +70,7 @@ app.use((req, res, next) => {
 // User Routes
 app.use('/', index);
 app.use('/auth', auth);
+app.use('/stories', stories);
 
 const port = process.env.PORT || 5001;
 

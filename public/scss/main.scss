@@ -1,3 +1,11 @@
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
+}
 
 .icon{
   margin-top: 8px;
@@ -12,4 +20,8 @@
 
 .sidenav-wellcome {
   margin-left: 1.3rem;
+}
+
+.btn-text {
+  margin-left: 13px;
 }
