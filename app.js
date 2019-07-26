@@ -11,6 +11,12 @@ const passport = require('passport');
 require('./models/User');
 require('./models/Story');
 
+// Handlebars Helpers
+const {
+  truncate,
+  stripTags
+} = require('./helpers/hbs');
+
 // Passport Config
 require('./config/passport')(passport);
 
@@ -49,7 +55,11 @@ app.engine('hbs', exphbs({
   defaultLayout: 'main',
   layoutsDir: __dirname + '/views/layouts',
   partialsDir: __dirname + '/views/partials',
-  storiesDir: __dirname + '/views/stories'
+  storiesDir: __dirname + '/views/stories',
+  helpers: {
+    truncate,
+    stripTags
+  }
 }));
 app.set('view engine', 'hbs');
 
