@@ -21,6 +21,7 @@ const app = express();
 
 // handling static folder
 app.use('*/public', express.static('public'));
+app.use('*/node_modules', express.static('node_modules'));
 
 // Load Keys
 const keys = require('./config/keys');

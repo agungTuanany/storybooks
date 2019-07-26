@@ -7,6 +7,13 @@ main {
   flex: 1 0 auto;
 }
 
+.nav-wrapper {
+  .nav-hamburger {
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
+}
+
 .icon{
   margin-top: 8px;
   margin-right: 7px;
@@ -24,4 +31,8 @@ main {
 
 .btn-text {
   margin-left: 13px;
+}
+
+footer {
+  margin-top: 2rem;
 }
