@@ -6,7 +6,13 @@ const Story = mongoose.model('stories');
 const User = mongoose.model('users');
 
 router.get('/', ensureAuthenticated, (req, res) => {
-  res.render('stories/index');
+  Story.find({ status: 'public' })
+    .populate('user')
+    .then(stories => {
+      res.render('stories/index', {
+        stories
+      });
+    });
 });
 
 // Add Story Form
