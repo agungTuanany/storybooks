@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Using ckeditor
-CKEDITOR.replace('body1');
+const body1 = document.querySelector('.body1')
+body1 ? CKEDITOR.replace('body1') : null
 
 
 

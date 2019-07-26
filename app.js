@@ -1,13 +1,15 @@
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 
-// Load User Model
+// Load Models
 require('./models/User');
+require('./models/Story');
 
 // Passport Config
 require('./config/passport')(passport);
@@ -22,6 +24,10 @@ const app = express();
 // handling static folder
 app.use('*/public', express.static('public'));
 app.use('*/node_modules', express.static('node_modules'));
+
+// body-routes middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // Load Keys
 const keys = require('./config/keys');
