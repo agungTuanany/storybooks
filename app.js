@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
@@ -36,6 +37,9 @@ app.use('*/node_modules', express.static('node_modules'));
 // body-routes middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// method-override middleware
+app.use(methodOverride('_method'));
 
 // Load Keys
 const keys = require('./config/keys');

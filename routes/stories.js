@@ -45,6 +45,7 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
     });
 });
 
+// Process Add Story
 router.post('/', (req, res) => {
   let allowComments;
   req.body.allowComments ? allowComments = true : allowComments = false;
@@ -62,6 +63,28 @@ router.post('/', (req, res) => {
     .save()
     .then(story => {
       res.redirect(`/stories/show/${story.id}`)
+    });
+});
+
+// Edit Form Process
+router.put('/:id', (req, res) => {
+  Story.findOne({
+    _id: req.params.id
+  })
+    .then(story => {
+      let allowComments;
+      req.body.allowComments ? allowComments = true : allowComments = false;
+
+      // New values
+      story.title = req.body.title;
+      story.status = req.body.status;
+      story.body = req.body.body1;
+      story.allowComments = allowComments;
+
+      story.save()
+        .then(story => {
+          res.redirect('/dashboard');
+        });
     });
 });
 
