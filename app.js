@@ -15,7 +15,8 @@ require('./models/Story');
 const {
   truncate,
   stripTags,
-  formatDate
+  formatDate,
+  select
 } = require('./helpers/hbs');
 
 // Passport Config
@@ -60,7 +61,8 @@ app.engine('hbs', exphbs({
   helpers: {
     truncate,
     stripTags,
-    formatDate
+    formatDate,
+    select
   }
 }));
 app.set('view engine', 'hbs');
