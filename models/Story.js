@@ -13,19 +13,11 @@ const StorySchema = new Schema({
   },
   status: {
     type: String,
-    default: 'publish'
+    default: 'public'
   },
   allowComments: {
-    type: String,
+    type: Boolean,
     default: true
-  },
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'users'
-  },
-  date: {
-    type: Date,
-    default: Date.now
   },
   comments: [{
     commentBody: {
@@ -37,10 +29,19 @@ const StorySchema = new Schema({
       default: Date.now
     },
     commentUser: {
-      type: Schema.Types.ObjectId
+      type: Schema.Types.ObjectId,
+      ref: 'users'
     }
-  }]
+  }],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'users'
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  }
 });
-
+//
 // Create collection and add schema
 mongoose.model('stories', StorySchema, 'stories');

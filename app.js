@@ -14,7 +14,8 @@ require('./models/Story');
 // Handlebars Helpers
 const {
   truncate,
-  stripTags
+  stripTags,
+  formatDate
 } = require('./helpers/hbs');
 
 // Passport Config
@@ -58,7 +59,8 @@ app.engine('hbs', exphbs({
   storiesDir: __dirname + '/views/stories',
   helpers: {
     truncate,
-    stripTags
+    stripTags,
+    formatDate
   }
 }));
 app.set('view engine', 'hbs');

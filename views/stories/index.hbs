@@ -12,7 +12,7 @@
         <div class='card-content center-align'>
           <h5>{{title}}</h5>
           <!-- Using helpers method -->
-          <p class='story-text'>{{body}}</p>
+          <p class='story-text'>{{stripTags (truncate body 100)}}</p>
           <br>
           <div class='chip'>
             <img src='{{user.image}}' alt='Contact Person'>

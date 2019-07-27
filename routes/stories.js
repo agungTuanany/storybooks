@@ -15,6 +15,19 @@ router.get('/', ensureAuthenticated, (req, res) => {
     });
 });
 
+// Show Single Story
+router.get('/show/:id', (req, res) => {
+  Story.findOne({
+    _id: req.params.id
+  })
+    .populate('user')
+    .then(story => {
+      res.render('stories/show', {
+        story
+      });
+    });
+});
+
 // Add Story Form
 router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('stories/add');
@@ -35,9 +48,8 @@ router.post('/', (req, res) => {
   // Create Story
   new Story(newStory)
     .save()
-    .then(stroy => {
-      res.redirect(`/stories/show/$(story.id)`)
-
+    .then(story => {
+      res.redirect(`/stories/show/${story.id}`)
     });
 });
 
