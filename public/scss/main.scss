@@ -33,10 +33,22 @@ main {
   margin-left: 13px;
 }
 
-.stories-icon {
+.story-icon {
   font-size: 1.2rem;
   margin-left: 1rem;
   margin-top: .5rem;
+}
+
+.story-text {
+  height: 120px;
+}
+
+.dash-status {
+  text-transform: capitalize;
+}
+
+#delete-form {
+  display: inline;
 }
 
 footer {
