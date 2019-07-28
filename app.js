@@ -17,7 +17,8 @@ const {
   truncate,
   stripTags,
   formatDate,
-  select
+  select,
+  editIcon
 } = require('./helpers/hbs');
 
 // Passport Config
@@ -66,7 +67,8 @@ app.engine('hbs', exphbs({
     truncate,
     stripTags,
     formatDate,
-    select
+    select,
+    editIcon
   }
 }));
 app.set('view engine', 'hbs');
