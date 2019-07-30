@@ -87,21 +87,39 @@ router.get('/edit/:id', ensureAuthenticated, (req, res) => {
 router.post('/', (req, res) => {
   let allowComments;
   req.body.allowComments ? allowComments = true : allowComments = false;
+  let errors = [];
 
-  const newStory = {
-    title: req.body.title,
-    status: req.body.status,
-    body: req.body.body1,
-    allowComments: allowComments,
-    user: req.user.id
+  if(!req.body.title) {
+    errors.push({text: "Please add a title"});
   }
 
-  // Create Story
-  new Story(newStory)
-    .save()
-    .then(story => {
-      res.redirect(`/stories/show/${story.id}`)
+  if(!req.body.body1) {
+    errors.push({text: "Please add a text body"});
+  }
+
+  if(errors.length > 0) {
+    res.render('stories/add', {
+      errors: errors,
+      title: req.body.title,
+      body: req.body.body1
     });
+  } else {
+    const newStory = {
+      title: req.body.title,
+      status: req.body.status,
+      body: req.body.body1,
+      allowComments: allowComments,
+      user: req.user.id
+    };
+
+    // Create Story
+    new Story(newStory)
+      .save()
+      .then(story => {
+        req.flash('success_msg', 'story added');
+        res.redirect(`/stories/show/${story.id}`)
+      });
+  }
 });
 
 // Edit Form Process
@@ -121,6 +139,7 @@ router.put('/:id', (req, res) => {
 
       story.save()
         .then(story => {
+          req.flash('success_msg', 'Story edited');
           res.redirect('/dashboard');
         });
     });
@@ -130,6 +149,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   Story.deleteOne({ _id: req.params.id })
     .then(() => {
+      req.flash('success_msg', 'Story removed');
       res.redirect('/dashboard');
     });
 });
@@ -148,6 +168,7 @@ router.post('/comment/:id', (req, res) => {
 
       story.save()
         .then(story => {
+          req.flash('success_msg', 'Comment added');
           res.redirect(`/stories/show/${story.id}`);
         });
     });

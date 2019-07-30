@@ -1,3 +1,13 @@
+{{#each errors}}
+  <div class='card-alert red lighten-5'>
+    <div class='card-content error-msg red-text'>
+      <strong>Oh snap?</strong> {{text}}
+    </div>
+  </div>
+{{else}}
+
+{{/each}}
+
 <h1>Add Story Pages</h1>
 <div class='row'>
   <form action='/stories' method='post' class='col s12'>

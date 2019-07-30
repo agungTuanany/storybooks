@@ -39,5 +39,13 @@ main {
 #delete-form {
   display: inline; }
 
+.card-alert .error-msg {
+  font-size: 2rem;
+  margin-left: 1rem; }
+
+.card-alert .success-msg {
+  font-size: 2rem;
+  margin-left: 1rem; }
+
 footer {
   margin-top: 2rem; }

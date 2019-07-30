@@ -6,6 +6,7 @@ const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const flash = require('connect-flash');
 const passport = require('passport');
 
 // Load Models
@@ -79,9 +80,12 @@ app.use(cookieParser());
 // express-session middleware
 app.use(session({
   secret: 'secret',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true
 }));
+
+// connect-flash middleware
+app.use(flash());
 
 //  !IMPORTANT write after express-session
 // Passport middleware
@@ -91,6 +95,8 @@ app.use(passport.session());
 // Set global vars
 app.use((req, res, next) => {
   res.locals.user = req.user || null;
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
   next();
 });
 
