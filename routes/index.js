@@ -5,20 +5,28 @@ const Story = mongoose.model('stories');
 const { ensureAuthenticated, ensureGuest } = require('../helpers/auth');
 
 router.get('/', ensureGuest, (req, res) => {
-  res.render('index/welcome');
+  const title = 'welcome';
+  res.render('index/welcome', {
+    title
+  });
 });
 
 router.get('/dashboard', ensureAuthenticated, (req, res) => {
+  const title = 'dashboard';
   Story.find({ user: req.user.id })
     .then(stories => {
       res.render('index/dashboard', {
-        stories
+        stories,
+        title
       });
     });
 });
 
 router.get('/about', (req, res) => {
-  res.render('index/about');
+  const title = 'about';
+  res.render('index/about', {
+    title
+  });
 });
 
 

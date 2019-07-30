@@ -6,18 +6,21 @@ const Story = mongoose.model('stories');
 const User = mongoose.model('users');
 
 router.get('/', ensureAuthenticated, (req, res) => {
+  const title = 'stories';
   Story.find({ status: 'public' })
     .populate('user')
     .sort({date: 'desc'})
     .then(stories => {
       res.render('stories/index', {
-        stories
+        stories,
+        title
       });
     });
 });
 
 // Show Single Story
 router.get('/show/:id', (req, res) => {
+  const title = 'single-story';
   Story.findOne({
     _id: req.params.id
   })
@@ -26,13 +29,15 @@ router.get('/show/:id', (req, res) => {
     .then(story => {
       if(story.status == 'public') {
         res.render('stories/show', {
-          story
+          story,
+          title
         });
       } else {
         if(req.user){
           if(req.user.id == story.user._id) {
             res.render('stories/show', {
-              story
+              story,
+              title
             });
           } else {
             res.redirect('/stories')
@@ -46,39 +51,48 @@ router.get('/show/:id', (req, res) => {
 
 // List stories from a single user
 router.get('/user/:userId', (req, res) => {
+  const title = 'stories list';
   Story.find({user: req.params.userId, status: 'public'})
     .populate('user')
     .then(stories => {
       res.render('stories/index', {
-        stories
+        stories,
+        title
       });
     });
 });
 
 // Logged in user stories
 router.get('/my', ensureAuthenticated, (req, res) => {
+  const title = 'user stories';
   Story.find({user: req.user.id})
     .populate('user')
     .then(stories => {
       res.render('stories/index', {
-        stories
+        stories,
+        title
       });
     });
 });
 
 // Add Story Form
 router.get('/add', ensureAuthenticated, (req, res) => {
-  res.render('stories/add');
+  const title = 'add story';
+  res.render('stories/add', {
+    title
+  });
 });
 
 // Edit Story Form
 router.get('/edit/:id', ensureAuthenticated, (req, res) => {
+  const title = 'edit story';
   Story.findOne({
     _id: req.params.id
   })
     .then(story => {
       story.user != req.user.id ? res.redirect('/') : res.render('stories/edit', {
-        story
+        story,
+        title
       });
     });
 });
